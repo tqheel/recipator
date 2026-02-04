@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recipator - Recipe Walkthroughs</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 800px;
+            width: 100%;
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            margin-top: 40px;
+        }
+
+        h1 {
+            color: #333;
+            margin-bottom: 10px;
+            font-size: 2.5em;
+            text-align: center;
+        }
+
+        .subtitle {
+            color: #666;
+            text-align: center;
+            margin-bottom: 40px;
+            font-size: 1.1em;
+        }
+
+        .walkthroughs-list {
+            list-style: none;
+        }
+
+        .walkthrough-item {
+            background: #f8f9fa;
+            border: 2px solid #e9ecef;
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 15px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .walkthrough-item:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            border-color: #667eea;
+            background: #fff;
+        }
+
+        .walkthrough-name {
+            font-size: 1.2em;
+            color: #333;
+            font-weight: 600;
+        }
+
+        .walkthrough-icon {
+            font-size: 1.5em;
+            color: #667eea;
+        }
+
+        .loading {
+            text-align: center;
+            padding: 40px;
+            color: #666;
+            font-size: 1.1em;
+        }
+
+        .error {
+            background: #fee;
+            border: 2px solid #fcc;
+            border-radius: 12px;
+            padding: 20px;
+            color: #c33;
+            text-align: center;
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 60px 20px;
+            color: #666;
+        }
+
+        .empty-state-icon {
+            font-size: 4em;
+            margin-bottom: 20px;
+            opacity: 0.3;
+        }
+
+        .empty-state h2 {
+            color: #999;
+            margin-bottom: 10px;
+        }
+
+        .empty-state p {
+            color: #aaa;
+            line-height: 1.6;
+        }
+
+        @media (max-width: 600px) {
+            .container {
+                padding: 20px;
+            }
+
+            h1 {
+                font-size: 2em;
+            }
+
+            .walkthrough-item {
+                padding: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🍳 Recipator</h1>
+        <p class="subtitle">Select a recipe walkthrough to begin</p>
+        
+        <div id="content">
+            <div class="loading">Loading walkthroughs...</div>
+        </div>
+    </div>
+
+    <script>
+        async function loadWalkthroughs() {
+            const contentDiv = document.getElementById('content');
+            
+            try {
+                const response = await fetch('/api/walkthroughs');
+                
+                if (!response.ok) {
+                    throw new Error('Failed to load walkthroughs');
+                }
+                
+                const walkthroughs = await response.json();
+                
+                if (walkthroughs.length === 0) {
+                    contentDiv.innerHTML = `
+                        <div class="empty-state">
+                            <div class="empty-state-icon">📝</div>
+                            <h2>No Walkthroughs Yet</h2>
+                            <p>
+                                Add walkthrough HTML files to the <code>walkthroughs</code> directory<br>
+                                to see them appear here.
+                            </p>
+                        </div>
+                    `;
+                    return;
+                }
+                
+                const listHtml = `
+                    <ul class="walkthroughs-list">
+                        ${walkthroughs.map(wt => `
+                            <li class="walkthrough-item" onclick="openWalkthrough('${wt.url}')">
+                                <span class="walkthrough-name">${wt.name}</span>
+                                <span class="walkthrough-icon">→</span>
+                            </li>
+                        `).join('')}
+                    </ul>
+                `;
+                
+                contentDiv.innerHTML = listHtml;
+            } catch (error) {
+                console.error('Error loading walkthroughs:', error);
+                contentDiv.innerHTML = `
+                    <div class="error">
+                        <strong>Error:</strong> Failed to load walkthroughs. Please try again later.
+                    </div>
+                `;
+            }
+        }
+        
+        function openWalkthrough(url) {
+            window.location.href = url;
+        }
+        
+        // Load walkthroughs when page loads
+        loadWalkthroughs();
+    </script>
+</body>
+</html>
