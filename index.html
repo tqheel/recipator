@@ -148,7 +148,7 @@
             const contentDiv = document.getElementById('content');
             
             try {
-                const response = await fetch('/api/walkthroughs');
+                const response = await fetch('walkthroughs.json');
                 
                 if (!response.ok) {
                     throw new Error('Failed to load walkthroughs');
@@ -163,7 +163,7 @@
                             <h2>No Walkthroughs Yet</h2>
                             <p>
                                 Add walkthrough HTML files to the <code>walkthroughs</code> directory<br>
-                                to see them appear here.
+                                and run <code>npm run build</code> to update the list.
                             </p>
                         </div>
                     `;

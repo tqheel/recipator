@@ -1,0 +1,12 @@
+[
+  {
+    "name": "chocolate-chip-cookies",
+    "type": "file",
+    "url": "walkthroughs/chocolate-chip-cookies.html"
+  },
+  {
+    "name": "pasta-carbonara",
+    "type": "directory",
+    "url": "walkthroughs/pasta-carbonara/index.html"
+  }
+]

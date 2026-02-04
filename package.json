@@ -2,10 +2,8 @@
   "name": "recipator",
   "version": "1.0.0",
   "description": "Recipe walkthrough presentation wrapper app",
-  "main": "server.js",
   "scripts": {
-    "start": "node server.js",
-    "dev": "node server.js"
+    "build": "node build.js"
   },
   "keywords": [
     "recipe",
@@ -13,8 +11,5 @@
     "presentation"
   ],
   "author": "",
-  "license": "ISC",
-  "dependencies": {
-    "express": "^4.18.2"
-  }
+  "license": "ISC"
 }
