@@ -1,0 +1,15 @@
+{
+  "name": "recipator",
+  "version": "1.0.0",
+  "description": "Recipe walkthrough presentation wrapper app",
+  "scripts": {
+    "build": "node build.js"
+  },
+  "keywords": [
+    "recipe",
+    "walkthrough",
+    "presentation"
+  ],
+  "author": "",
+  "license": "ISC"
+}

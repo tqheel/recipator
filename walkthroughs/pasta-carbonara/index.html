@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pasta Carbonara - Italian Classic</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Courier New', monospace;
+            background: #1a1a1a;
+            color: #e0e0e0;
+            line-height: 1.8;
+        }
+
+        .banner {
+            background: linear-gradient(135deg, #006400 0%, #228b22 100%);
+            color: white;
+            padding: 80px 20px;
+            text-align: center;
+            border-bottom: 5px solid #ffd700;
+        }
+
+        .banner h1 {
+            font-size: 3.5em;
+            margin-bottom: 10px;
+            font-weight: bold;
+            letter-spacing: 2px;
+        }
+
+        .banner .flag {
+            font-size: 2em;
+            margin-bottom: 15px;
+        }
+
+        .banner p {
+            font-size: 1.3em;
+            font-style: italic;
+        }
+
+        .content {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        .nav-back {
+            display: inline-block;
+            background: #228b22;
+            color: white;
+            padding: 14px 28px;
+            border-radius: 8px;
+            text-decoration: none;
+            margin-bottom: 40px;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            border: 2px solid #ffd700;
+        }
+
+        .nav-back:hover {
+            background: #006400;
+            transform: translateX(-5px);
+        }
+
+        .recipe-section {
+            background: #2a2a2a;
+            border-radius: 15px;
+            padding: 35px;
+            margin-bottom: 35px;
+            border: 3px solid #006400;
+            box-shadow: 0 5px 15px rgba(0, 100, 0, 0.3);
+        }
+
+        .recipe-section h2 {
+            color: #ffd700;
+            font-size: 2.2em;
+            margin-bottom: 25px;
+            border-bottom: 3px solid #228b22;
+            padding-bottom: 12px;
+            text-transform: uppercase;
+        }
+
+        .metadata {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .meta-card {
+            background: #1a1a1a;
+            padding: 20px;
+            border-radius: 10px;
+            border-left: 5px solid #ffd700;
+            text-align: center;
+        }
+
+        .meta-card .label {
+            color: #888;
+            font-size: 0.9em;
+            margin-bottom: 8px;
+            text-transform: uppercase;
+        }
+
+        .meta-card .value {
+            color: #ffd700;
+            font-size: 1.5em;
+            font-weight: bold;
+        }
+
+        .ingredients {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 15px;
+        }
+
+        .ingredient-item {
+            background: #1a1a1a;
+            padding: 15px 20px;
+            border-radius: 8px;
+            border-left: 4px solid #228b22;
+            transition: all 0.3s ease;
+        }
+
+        .ingredient-item:hover {
+            transform: translateX(10px);
+            border-left-color: #ffd700;
+        }
+
+        .steps {
+            counter-reset: step;
+        }
+
+        .step {
+            background: #1a1a1a;
+            padding: 30px;
+            margin-bottom: 25px;
+            border-radius: 10px;
+            position: relative;
+            padding-left: 100px;
+            border: 2px solid #228b22;
+            transition: all 0.3s ease;
+        }
+
+        .step:hover {
+            border-color: #ffd700;
+            box-shadow: 0 0 20px rgba(255, 215, 0, 0.2);
+        }
+
+        .step::before {
+            counter-increment: step;
+            content: counter(step);
+            position: absolute;
+            left: 25px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: linear-gradient(135deg, #006400, #228b22);
+            color: #ffd700;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5em;
+            font-weight: bold;
+            border: 3px solid #ffd700;
+        }
+
+        .step h3 {
+            color: #ffd700;
+            margin-bottom: 12px;
+            font-size: 1.3em;
+        }
+
+        .step p {
+            color: #c0c0c0;
+            line-height: 1.6;
+        }
+
+        .tip-box {
+            background: linear-gradient(135deg, #006400, #228b22);
+            border: 3px solid #ffd700;
+            border-radius: 12px;
+            padding: 30px;
+            margin-top: 30px;
+        }
+
+        .tip-box h3 {
+            color: #ffd700;
+            font-size: 1.8em;
+            margin-bottom: 15px;
+        }
+
+        .tip-box ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .tip-box li {
+            padding: 10px 0;
+            padding-left: 30px;
+            position: relative;
+            color: white;
+        }
+
+        .tip-box li::before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: #ffd700;
+            font-weight: bold;
+            font-size: 1.2em;
+        }
+
+        @media (max-width: 768px) {
+            .banner h1 {
+                font-size: 2em;
+            }
+
+            .step {
+                padding-left: 80px;
+            }
+
+            .step::before {
+                width: 40px;
+                height: 40px;
+                font-size: 1.2em;
+            }
+
+            .ingredients {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="banner">
+        <div class="flag">🇮🇹</div>
+        <h1>PASTA CARBONARA</h1>
+        <p>Autentica Ricetta Italiana</p>
+    </div>
+
+    <div class="content">
+        <a href="/" class="nav-back">← Torna ai Percorsi</a>
+
+        <div class="recipe-section">
+            <h2>Informazioni</h2>
+            <div class="metadata">
+                <div class="meta-card">
+                    <div class="label">Prep Time</div>
+                    <div class="value">10 min</div>
+                </div>
+                <div class="meta-card">
+                    <div class="label">Cook Time</div>
+                    <div class="value">15 min</div>
+                </div>
+                <div class="meta-card">
+                    <div class="label">Difficulty</div>
+                    <div class="value">Medium</div>
+                </div>
+                <div class="meta-card">
+                    <div class="label">Servings</div>
+                    <div class="value">4</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="recipe-section">
+            <h2>Ingredienti</h2>
+            <div class="ingredients">
+                <div class="ingredient-item">400g spaghetti or rigatoni</div>
+                <div class="ingredient-item">200g guanciale (or pancetta)</div>
+                <div class="ingredient-item">4 large egg yolks</div>
+                <div class="ingredient-item">1 whole egg</div>
+                <div class="ingredient-item">100g Pecorino Romano, grated</div>
+                <div class="ingredient-item">Black pepper, freshly ground</div>
+                <div class="ingredient-item">Salt for pasta water</div>
+            </div>
+        </div>
+
+        <div class="recipe-section">
+            <h2>Preparazione</h2>
+            <div class="steps">
+                <div class="step">
+                    <h3>Prepare the Guanciale</h3>
+                    <p>Cut the guanciale into small strips or cubes (about 1cm). The fat will render during cooking, so keep the pieces uniform for even cooking.</p>
+                </div>
+
+                <div class="step">
+                    <h3>Boil the Pasta</h3>
+                    <p>Bring a large pot of salted water to boil. Add pasta and cook until al dente (usually 1-2 minutes less than package directions). Reserve 1 cup of pasta water before draining!</p>
+                </div>
+
+                <div class="step">
+                    <h3>Cook the Guanciale</h3>
+                    <p>While pasta cooks, add guanciale to a cold pan and heat over medium. Cook until crispy and golden (about 8-10 minutes). No oil needed - the fat will render out. Remove from heat.</p>
+                </div>
+
+                <div class="step">
+                    <h3>Mix Egg and Cheese</h3>
+                    <p>In a bowl, whisk together egg yolks, whole egg, and most of the grated Pecorino Romano. Add plenty of freshly ground black pepper. Mix until smooth and creamy.</p>
+                </div>
+
+                <div class="step">
+                    <h3>Combine Everything</h3>
+                    <p>Remove the guanciale pan from heat (important!). Add drained pasta to the pan with guanciale. Toss quickly to coat in the rendered fat.</p>
+                </div>
+
+                <div class="step">
+                    <h3>Add the Egg Mixture</h3>
+                    <p>Off the heat, quickly pour the egg mixture over the pasta. Toss vigorously! Add reserved pasta water a little at a time to create a creamy, silky sauce. The eggs should NOT scramble!</p>
+                </div>
+
+                <div class="step">
+                    <h3>Serve Immediately</h3>
+                    <p>Plate the carbonara immediately. Top with remaining Pecorino Romano and a generous crack of black pepper. Serve hot and enjoy the creamy perfection!</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="tip-box">
+            <h3>🧑‍🍳 Chef's Secrets</h3>
+            <ul>
+                <li>NEVER add cream - authentic carbonara is just eggs, cheese, guanciale, and pepper</li>
+                <li>The key is temperature: add eggs to hot pasta OFF the heat to avoid scrambling</li>
+                <li>Guanciale is traditional, but pancetta works as a substitute (never bacon!)</li>
+                <li>Pecorino Romano is essential - Parmigiano can be mixed in but not replace it</li>
+                <li>The pasta water is crucial for creating the creamy sauce consistency</li>
+                <li>Serve immediately - carbonara waits for no one!</li>
+            </ul>
+        </div>
+    </div>
+</body>
+</html>
