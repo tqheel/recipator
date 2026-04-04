@@ -1,5 +1,10 @@
 [
   {
+    "name": "chicken-stir-fry",
+    "type": "directory",
+    "url": "walkthroughs/chicken-stir-fry/index.html"
+  },
+  {
     "name": "chocolate-chip-cookies",
     "type": "file",
     "url": "walkthroughs/chocolate-chip-cookies.html"
