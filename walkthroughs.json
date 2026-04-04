@@ -18,5 +18,10 @@
     "name": "pasta-carbonara",
     "type": "directory",
     "url": "walkthroughs/pasta-carbonara/index.html"
+  },
+  {
+    "name": "southern-buttermilk-cheese-biscuits",
+    "type": "directory",
+    "url": "walkthroughs/southern-buttermilk-cheese-biscuits/index.html"
   }
 ]

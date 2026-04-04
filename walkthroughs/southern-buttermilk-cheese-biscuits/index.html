@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Southern Buttermilk Cheese Biscuits - Walkthrough</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Georgia', serif;
+            background: #fffdf5;
+            color: #4a3728;
+            line-height: 1.6;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #e67e22 0%, #d35400 100%);
+            color: white;
+            padding: 60px 20px;
+            text-align: center;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .header h1 {
+            font-size: 3em;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .header p {
+            font-size: 1.2em;
+            opacity: 0.95;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 40px auto;
+            background: white;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.05);
+        }
+
+        .nav-back {
+            display: inline-block;
+            background: #d35400;
+            color: white;
+            padding: 12px 24px;
+            border-radius: 6px;
+            text-decoration: none;
+            margin-bottom: 30px;
+            transition: background 0.3s ease;
+            font-weight: bold;
+        }
+
+        .nav-back:hover {
+            background: #e67e22;
+        }
+
+        .section {
+            margin-bottom: 40px;
+        }
+
+        .section h2 {
+            color: #d35400;
+            border-bottom: 3px solid #f39c12;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+            font-size: 2em;
+        }
+
+        .ingredients-list,
+        .steps-list {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .ingredients-list li {
+            padding: 12px;
+            margin-bottom: 8px;
+            background: #fff9eb;
+            border-left: 4px solid #f39c12;
+            border-radius: 4px;
+        }
+
+        .steps-list li {
+            padding: 20px;
+            margin-bottom: 20px;
+            background: #fff9eb;
+            border-radius: 8px;
+            border-left: 5px solid #d35400;
+            counter-increment: step-counter;
+            position: relative;
+            padding-left: 70px;
+        }
+
+        .steps-list {
+            counter-reset: step-counter;
+        }
+
+        .steps-list li::before {
+            content: counter(step-counter);
+            position: absolute;
+            left: 20px;
+            top: 20px;
+            background: #d35400;
+            color: white;
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 1.2em;
+        }
+
+        .info-box {
+            background: #fef5e7;
+            border: 2px solid #f39c12;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 30px;
+        }
+
+        .info-box h3 {
+            color: #d35400;
+            margin-bottom: 10px;
+        }
+
+        .info-item {
+            display: inline-block;
+            margin-right: 30px;
+            margin-bottom: 10px;
+        }
+
+        .info-item strong {
+            color: #d35400;
+        }
+
+        .pro-tips {
+            background: #fdf2e9;
+            border: 2px dashed #d35400;
+            border-radius: 8px;
+            padding: 25px;
+            margin-top: 40px;
+        }
+
+        .pro-tips h3 {
+            color: #d35400;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+        }
+
+        .pro-tips ul {
+            padding-left: 20px;
+        }
+
+        .pro-tips li {
+            margin-bottom: 10px;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 20px;
+                margin: 20px;
+            }
+
+            .header h1 {
+                font-size: 2.2em;
+            }
+
+            .steps-list li {
+                padding-left: 60px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>🧀 Southern Buttermilk Cheese Biscuits</h1>
+        <p>The ultimate flaky, buttery, and cheesy comfort food</p>
+    </div>
+
+    <div class="container">
+        <a href="../../" class="nav-back">← Back to Walkthroughs</a>
+
+        <div class="info-box">
+            <h3>Recipe Information</h3>
+            <div class="info-item"><strong>Prep Time:</strong> 15 minutes</div>
+            <div class="info-item"><strong>Cook Time:</strong> 15 minutes</div>
+            <div class="info-item"><strong>Total Time:</strong> 30 minutes</div>
+            <div class="info-item"><strong>Yields:</strong> 10-12 biscuits</div>
+        </div>
+
+        <div class="section">
+            <h2>Ingredients</h2>
+            <ul class="ingredients-list">
+                <li>2 cups <strong>White Lily Self-Rising Flour</strong> (or 2 cups AP flour + 1 tbsp baking powder + 1 tsp salt)</li>
+                <li>6 tbsp (3/4 stick) <strong>Unsalted Butter</strong>, frozen</li>
+                <li>1 cup <strong>Sharp Cheddar Cheese</strong>, freshly grated</li>
+                <li>3/4 to 1 cup <strong>Full-Fat Buttermilk</strong>, ice cold</li>
+                <li>2 tbsp <strong>Melted Butter</strong> (for brushing)</li>
+            </ul>
+        </div>
+
+        <div class="section">
+            <h2>Instructions</h2>
+            <ol class="steps-list">
+                <li>
+                    <strong>Preheat and Prepare</strong><br>
+                    Preheat your oven to 450°F (230°C). For the best crust, place a cast-iron skillet inside as it heats, or grease a baking sheet.
+                </li>
+                <li>
+                    <strong>Grate the Frozen Butter</strong><br>
+                    Place the flour in a large chilled bowl. Use a box grater to shred the frozen butter directly into the flour. Gently toss to coat the butter bits in flour.
+                </li>
+                <li>
+                    <strong>Add the Cheese</strong><br>
+                    Add the freshly grated cheddar cheese to the flour mixture. Quickly toss with your hands until the cheese is evenly distributed and coated in flour.
+                </li>
+                <li>
+                    <strong>Form the Dough</strong><br>
+                    Create a well in the center of the dry ingredients. Pour in 3/4 cup of the ice-cold buttermilk. Using a fork, gently draw the flour from the edges into the center until a shaggy, sticky dough forms. Add more buttermilk if needed.
+                </li>
+                <li>
+                    <strong>Laminate for Layers</strong><br>
+                    Turn the dough onto a floured surface. Pat it into a rectangle. Fold the dough into thirds like a letter. Rotate 90 degrees, pat down, and repeat this process 3-4 times. This creates the signature flaky layers.
+                </li>
+                <li>
+                    <strong>Cut the Biscuits</strong><br>
+                    Pat the dough to a 1-inch thickness. Use a floured 2.5-inch biscuit cutter and press <strong>straight down</strong>. Do not twist the cutter, as this seals the edges and prevents the rise!
+                </li>
+                <li>
+                    <strong>Bake to Golden Perfection</strong><br>
+                    Place the biscuits in the skillet or on the baking sheet so they are <strong>touching</strong>. This helps them rise taller. Bake for 12-15 minutes until the tops are golden brown.
+                </li>
+                <li>
+                    <strong>The Finishing Touch</strong><br>
+                    Immediately upon removing from the oven, brush the tops of the hot biscuits with melted butter. Serve warm!
+                </li>
+            </ol>
+        </div>
+
+        <div class="pro-tips">
+            <h3>💡 Pro Tips for Perfect Biscuits</h3>
+            <ul>
+                <li><strong>Keep Everything Cold:</strong> Warm fats lead to flat biscuits. If your kitchen is hot, chill your bowl and flour before starting.</li>
+                <li><strong>Freshly Grated Cheese:</strong> Avoid pre-shredded cheese; it's coated in potato starch which prevents it from melting perfectly into the dough.</li>
+                <li><strong>Don't Overwork:</strong> Handle the dough as little as possible. The heat from your hands can melt the butter.</li>
+                <li><strong>The Shoulder-to-Shoulder Rule:</strong> Biscuits rise better when they have "neighbors" to lean on. Make sure they touch in the pan!</li>
+            </ul>
+        </div>
+    </div>
+</body>
+</html>
