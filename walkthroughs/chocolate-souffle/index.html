@@ -1,0 +1,558 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chocolate Soufflé & Raspberry Coulis: Professional Navigator</title>
+    <style>
+        :root {
+            --primary: #4e342e;
+            --secondary: #d7ccc8;
+            --accent: #8d6e63;
+            --bg: #fdfaf5;
+            --alert: #a67c52;
+            --berry: #ad1457;
+            --sidebar-width: 250px;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, sans-serif;
+            background: var(--bg);
+            color: #3e2723;
+            display: flex;
+            margin: 0;
+            min-height: 100vh;
+        }
+
+        #sidebar {
+            width: var(--sidebar-width);
+            background: #fff;
+            border-right: 1px solid #e0d7d0;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            overflow-y: auto;
+            position: fixed;
+            height: 100vh;
+            left: 0;
+            top: 0;
+        }
+
+        .nav-item {
+            padding: 10px 15px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background 0.2s, color 0.2s;
+            color: var(--primary);
+            font-weight: 500;
+            font-size: 0.95rem;
+        }
+
+        .nav-item:hover {
+            background: #f5f1e8;
+        }
+
+        .nav-item.active {
+            background: var(--accent);
+            color: white;
+            font-weight: 600;
+        }
+
+        #main-content {
+            margin-left: var(--sidebar-width);
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            padding: 40px;
+        }
+
+        #recipe-card {
+            background: white;
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+            max-width: 700px;
+            width: 100%;
+            text-align: center;
+            position: relative;
+            border: 1px solid #e0d7d0;
+        }
+
+        .progress-container {
+            background: #eee;
+            height: 6px;
+            border-radius: 3px;
+            margin-bottom: 25px;
+            overflow: hidden;
+        }
+
+        #progress-bar {
+            background: var(--accent);
+            height: 100%;
+            width: 0%;
+            transition: width 0.5s ease-in-out;
+        }
+
+        .setup-box {
+            background: #efebe9;
+            padding: 15px;
+            border-radius: 12px;
+            margin-bottom: 25px;
+            border: 1px solid var(--secondary);
+            font-size: 0.9rem;
+            text-align: left;
+        }
+
+        .setup-row {
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        h2 {
+            font-weight: 600;
+            color: var(--primary);
+            margin: 10px 0;
+        }
+
+        p {
+            font-size: 1.1rem;
+            line-height: 1.6;
+            min-height: 80px;
+            color: #5d4037;
+        }
+
+        #ingredient-list {
+            text-align: left;
+            margin-bottom: 25px;
+            display: none;
+            padding: 15px;
+            background: #fff;
+            border: 1px solid #f0f0f0;
+            border-radius: 10px;
+        }
+
+        #timer-section {
+            margin: 20px 0;
+            padding: 20px;
+            background: #fafafa;
+            border-radius: 15px;
+            border: 1px solid #eee;
+            display: none;
+        }
+
+        #timer-display {
+            font-size: 3.5rem;
+            font-weight: 200;
+            color: var(--primary);
+            font-variant-numeric: tabular-nums;
+        }
+
+        .controls {
+            display: flex;
+            justify-content: space-between;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        button {
+            flex: 1;
+            padding: 14px;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: opacity 0.2s;
+        }
+
+        .btn-primary {
+            background: var(--primary);
+            color: white;
+        }
+
+        .btn-secondary {
+            background: var(--secondary);
+            color: var(--primary);
+        }
+
+        .btn-info {
+            background: var(--accent);
+            color: white;
+            width: 100%;
+            margin-top: 10px;
+        }
+
+        .btn-berry {
+            background: var(--berry);
+            color: white;
+            width: 100%;
+            margin-top: 10px;
+            display: none;
+        }
+
+        .btn-troubleshoot {
+            background: var(--alert);
+            color: white;
+            width: 100%;
+            margin-top: 10px;
+            display: none;
+        }
+
+        #modal-overlay {
+            display: none;
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.75);
+            border-radius: 20px;
+            z-index: 100;
+            align-items: center;
+            justify-content: center;
+            backdrop-filter: blur(3px);
+        }
+
+        #modal-content {
+            background: white;
+            width: 85%;
+            padding: 25px;
+            border-radius: 15px;
+            text-align: left;
+            max-height: 80%;
+            overflow-y: auto;
+        }
+
+        #checklist-area {
+            display: none;
+            text-align: left;
+            background: #fff9f0;
+            padding: 15px;
+            border-radius: 10px;
+            border: 1px solid #ffe0b2;
+            margin-top: 10px;
+        }
+
+        @media (max-width: 800px) {
+            body {
+                flex-direction: column;
+            }
+
+            #sidebar {
+                width: 100%;
+                height: auto;
+                position: relative;
+                border-right: none;
+                border-bottom: 1px solid #e0d7d0;
+                overflow-x: auto;
+                flex-direction: row;
+            }
+
+            #main-content {
+                margin-left: 0;
+                padding: 20px;
+            }
+
+            .nav-item {
+                white-space: nowrap;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div id="sidebar">
+        <h3 style="margin: 0 0 10px 10px; color: var(--primary);">Steps</h3>
+        <!-- Nav items generated by JS -->
+    </div>
+
+    <div id="main-content">
+        <div id="recipe-card">
+            <div id="modal-overlay" onclick="closeModal()">
+                <div id="modal-content" onclick="event.stopPropagation()">
+                    <h3 id="modal-title" style="margin-top:0;">Diagnostic Information</h3>
+                    <div id="modal-body" style="font-size:0.9rem; line-height:1.4;"></div>
+                    <button class="btn-primary" style="width:100%; margin-top:15px;"
+                        onclick="closeModal()">Close</button>
+                </div>
+            </div>
+
+            <div class="progress-container">
+                <div id="progress-bar"></div>
+            </div>
+
+            <div class="setup-box">
+                <div class="setup-row">
+                    <span><strong>Batch:</strong> <input type="number" id="ramekin-count" value="11" min="1" onchange="initCalculation()" style="width:40px;"> units</span>
+                    <span><strong>Start:</strong> 
+                        <select id="temp-select" onchange="initCalculation()">
+                            <option value="room">Room Temp</option>
+                            <option value="cold">Refrigerated</option>
+                        </select>
+                    </span>
+                </div>
+                <div class="setup-row">
+                    <strong>Material:</strong> 
+                    <select id="mat-select" onchange="initCalculation()">
+                        <option value="pyrex">Pyrex (Glass)</option>
+                        <option value="ceramic">Ceramic</option>
+                    </select>
+                </div>
+            </div>
+
+            <div id="ingredient-list">
+                <h3 style="margin-top:0; font-size:1.1rem;">Scaled Ingredients</h3>
+                <ul id="ingredients-ul" style="list-style:none; padding:0; line-height:1.6; font-size:0.9rem;"></ul>
+            </div>
+
+            <h2 id="step-title">Step</h2>
+            <p id="step-text"></p>
+
+            <button id="info-btn" class="btn-info" onclick="showModal('info')">Technical Tip</button>
+            <button id="troubleshoot-btn" class="btn-troubleshoot" onclick="showModal('debug')">In-Oven
+                Diagnostic</button>
+
+            <div id="timer-section">
+                <div id="timer-display">00:00</div>
+                <button class="btn-info" onclick="toggleTimer()">Start/Pause Timer</button>
+            </div>
+
+            <div id="checklist-area">
+                <h4 style="margin:0 0 10px 0;">Post-Bake Checklist:</h4>
+                <div style="font-size:0.9rem;">
+                    <input type="checkbox"> Plates positioned near oven<br>
+                    <input type="checkbox"> Raspberry Sauce strained & ready<br>
+                    <input type="checkbox"> Guests seated and notified
+                </div>
+            </div>
+
+            <div class="controls">
+                <button class="btn-secondary" id="prev-btn" onclick="changeStep(-1)">Back</button>
+                <button class="btn-primary" id="next-btn" onclick="changeStep(1)">Next</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const steps = [
+            { title: "Logistics", isIng: true, infoT: "Mise en Place", infoB: "Gather all ingredients. Separate 6 eggs (keep yolks) and 2 additional eggs (whites only) for a total of 8 whites and 6 yolks. Ensure whites are at room temperature." },
+            { title: "1. Prep Vessels", text: "Adjust oven to 375°F (190°C). Grease ramekins with 1 tbsp softened butter, then coat evenly with 1 tbsp sugar. Refrigerate.", infoT: "Surface Friction", infoB: "The sugar crystals provide an essential 'ladder' for the batter to grip during the rise." },
+            { title: "2. Chocolate Base", text: "Microwave chocolate and 4 tbsp butter at 50% power (stirs every 30s) until melted (2-4 min). Stir in Grand Marnier, vanilla, and salt.", infoT: "Gentle Melting", infoB: "Low power prevents scorching. The liqueur and vanilla add complexity that pure chocolate lacks." },
+            { title: "3. Yolk Ribbon", text: "Beat 6 yolks and 1/3 cup sugar on medium speed until thick and pale yellow (~3 mins). Fold into chocolate mixture.", infoT: "Emulsification", infoB: "The yolks provide richness (fat) to balance the lean whites. The mixture should fall in a 'ribbon' from the beater." },
+            { title: "4. Whites & Peaks", text: "Whip 8 egg whites and cream of tartar: Foamy (1 min) -> Stiff Peaks (3-4 mins).", isWhip: true, infoT: "Structure", infoB: "Stiff peaks provide the structural lattice. Invert the whisk; the peak should stand straight." },
+            { title: "5. The Fold", text: "Stir 1/4 of whites into chocolate to lighten. Gently fold in the rest until just incorporated.", infoT: "Density Logic", infoB: "Sacrificing the first batch of whites makes the heavy chocolate base lighter, preventing the rest of the air bubbles from popping." },
+            { title: "6. Bake", text: "Fill ramekins, wipe rims. Bake 16-18 mins until fully risen. NO PEEKING!", isBake: true, infoT: "Thermodynamics", infoB: "The air bubbles trapped in the whites expand with heat. Opening the door causes a temp drop -> collapse." },
+            {
+                title: "7. Raspberry Sauce",
+                text: `<div style="text-align: left;">
+                    <p>Adding a fresh raspberry sauce (coulis) provides an acidic counterpoint to the dense, fatty profile of a chocolate soufflé. To maintain the scholarly precision of the existing navigator, the following sauce recipe utilizes a standard reduction method to concentrate the fruit's natural pectins and sugars.</p>
+                    
+                    <h4 style="margin: 15px 0 5px; color: var(--primary);">Raspberry Coulis Ingredients</h4>
+                    <ul style="margin: 5px 0 15px 20px;">
+                        <li>12 oz (340g) Fresh raspberries</li>
+                        <li>1/4 cup (50g) Granulated sugar (adjust based on fruit ripeness)</li>
+                        <li>1 tbsp Lemon juice (provides enzymatic brightness and aids pectin set)</li>
+                        <li>1 tbsp Water (if needed for initial breakdown)</li>
+                        <li>Optional: 1 tsp Framboise or orange liqueur to echo the soufflé base</li>
+                    </ul>
+                    
+                    <h4 style="margin: 15px 0 5px; color: var(--primary);">Preparation Method</h4>
+                    <p style="margin-bottom: 8px;"><strong>Maceration:</strong> Combine raspberries, sugar, and lemon juice in a small saucepan. Let sit for 10 minutes until juices begin to release.</p>
+                    <p style="margin-bottom: 8px;"><strong>Reduction:</strong> Heat over medium-low, stirring occasionally. Simmer for 5–8 minutes until the berries have completely broken down and the liquid has slightly thickened.</p>
+                    <p style="margin-bottom: 8px;"><strong>Filtration:</strong> Press the mixture through a fine-mesh sieve into a bowl to remove the seeds (drupelets). This step is non-negotiable for a professional texture.</p>
+                    <p><strong>Cooling:</strong> Allow the sauce to cool to room temperature or chill. It will thicken further as it cools.</p>
+                </div>`,
+                infoT: "Pectin & Acid",
+                infoB: "Heating releases pectin from the fruit cell walls, enabling the sauce to thicken. The acid (lemon) helps extract the pectin."
+            },
+            { title: "8. Serve", text: "Dust with powdered sugar and serve immediately.", isCheck: true }
+        ];
+
+        let currentIdx = 0;
+        let timerInt = null;
+        let timeLeft = 0;
+        let isRunning = false;
+        const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+
+        function renderSidebar() {
+            const sidebar = document.getElementById('sidebar');
+            const header = sidebar.querySelector('h3');
+            sidebar.innerHTML = ''; // Clear existing
+            sidebar.appendChild(header); // Restore header
+
+            steps.forEach((step, idx) => {
+                const item = document.createElement('div');
+                item.className = `nav-item ${idx === currentIdx ? 'active' : ''}`;
+                item.innerText = step.title;
+                item.onclick = () => jumpToStep(idx);
+                sidebar.appendChild(item);
+            });
+        }
+
+        function jumpToStep(idx) {
+            if (idx >= 0 && idx < steps.length) {
+                currentIdx = idx;
+                updateUI();
+            }
+        }
+
+        function initCalculation() {
+            const count = parseInt(document.getElementById('ramekin-count').value) || 11;
+            const mat = document.getElementById('mat-select').value;
+            const isCold = document.getElementById('temp-select').value === 'cold';
+            localStorage.setItem('souffle_count', count);
+            localStorage.setItem('souffle_mat', mat);
+            localStorage.setItem('souffle_temp', document.getElementById('temp-select').value);
+
+            // Base recipe is for 11 ramekins
+            const ratio = count / 11;
+            const ul = document.getElementById('ingredients-ul');
+
+            // Calculate scaled quantities
+            const coatingButter = (1 * ratio).toFixed(1);
+            const coatingSugar = (1 * ratio).toFixed(1);
+            const chocOz = (8 * ratio).toFixed(1);
+            const baseButter = (4 * ratio).toFixed(1);
+            const grandMarnier = (1 * ratio).toFixed(1);
+            const vanilla = (0.5 * ratio).toFixed(2);
+            const salt = (0.25 * ratio).toFixed(2);
+            const baseSugarCup = (0.33 * ratio).toFixed(2);
+            const baseSugarTbsp = (5.3 * ratio).toFixed(1);
+            const yolks = (6 * ratio).toFixed(0);
+            const whites = (8 * ratio).toFixed(0);
+            const tartar = (0.25 * ratio).toFixed(2);
+            const extraWhites = (2 * ratio).toFixed(0);
+            const baseEggs = (6 * ratio).toFixed(0);
+
+            ul.innerHTML = `
+                <li><strong>${coatingButter} tbsp</strong> Butter (for coating)</li>
+                <li><strong>${coatingSugar} tbsp</strong> Sugar (for coating)</li>
+                <hr style="border: 0; border-top: 1px solid #eee; margin: 5px 0;">
+                <li><strong>${chocOz} oz</strong> Bittersweet Chocolate (chopped)</li>
+                <li><strong>${baseButter} tbsp</strong> Butter (cut into pieces)</li>
+                <li><strong>${grandMarnier} tbsp</strong> Grand Marnier</li>
+                <li><strong>${vanilla} tsp</strong> Vanilla Extract</li>
+                <li><strong>${salt} tsp</strong> Table Salt</li>
+                <hr style="border: 0; border-top: 1px solid #eee; margin: 5px 0;">
+                <li><strong>${baseSugarCup} cup</strong> Sugar (approx ${baseSugarTbsp} tbsp)</li>
+                <li><strong>${yolks}</strong> Large Egg Yolks</li>
+                <li><strong>${whites}</strong> Large Egg Whites</li>
+                <li><strong>${tartar} tsp</strong> Cream of Tartar</li>
+            `;
+
+            // Adjust timings based on batch size (approximate physics)
+            steps[4].tSecs = Math.round(240 * Math.sqrt(ratio));
+
+            // Baking Logic with temperature adjustment
+            // Base bake time: 16m baseline + thermal mass offset
+            let bTime = 960 + (count * 5); 
+            
+            // Cumulative Multipliers
+            if (mat === 'pyrex') bTime *= 1.10; // Conductivity offset
+            if (isCold) bTime *= 1.15;        // ΔT offset
+            
+            steps[6].tSecs = Math.round(bTime);
+
+            // Update Step Text with Dynamic Values
+            steps[0].infoB = `Gather all ingredients. Separate ${baseEggs} eggs (keep yolks) and ${extraWhites} additional eggs (whites only) for a total of ${whites} whites and ${yolks} yolks. Ensure whites are at room temperature.`;
+
+            steps[1].text = `Adjust oven to 375°F (190°C). Grease ramekins with ${coatingButter} tbsp softened butter, then coat evenly with ${coatingSugar} tbsp sugar. Refrigerate.`;
+
+            steps[2].text = `Microwave ${chocOz} oz chocolate and ${baseButter} tbsp butter at 50% power (stirs every 30s) until melted (2-4 min). Stir in ${grandMarnier} tbsp Grand Marnier, ${vanilla} tsp vanilla, and ${salt} tsp salt.`;
+
+            steps[3].text = `Beat ${yolks} yolks and ${baseSugarCup} cup sugar on medium speed until thick and pale yellow (~3 mins). Fold into chocolate mixture.`;
+
+            steps[4].text = `Whip ${whites} egg whites and ${tartar} tsp cream of tartar: Foamy (1 min) -> Stiff Peaks (3-4 mins).`;
+
+            steps[6].text = `Fill ramekins, wipe rims. Bake until fully risen. NO PEEKING!`;
+
+            updateUI();
+        }
+
+        function updateUI() {
+            const step = steps[currentIdx];
+            localStorage.setItem('souffle_step', currentIdx);
+
+            // Sidebar update
+            renderSidebar();
+
+            document.getElementById('step-title').innerText = step.title;
+            // Use innerHTML to render formatted text if any
+            document.getElementById('step-text').innerHTML = step.text || "";
+            document.getElementById('ingredient-list').style.display = step.isIng ? 'block' : 'none';
+            document.getElementById('info-btn').style.display = step.infoT ? 'block' : 'none';
+            document.getElementById('troubleshoot-btn').style.display = step.isBake ? 'block' : 'none';
+            document.getElementById('checklist-area').style.display = step.isCheck ? 'block' : 'none';
+            document.getElementById('progress-bar').style.width = ((currentIdx + 1) / steps.length) * 100 + "%";
+
+            clearInterval(timerInt); isRunning = false;
+            if (step.tSecs > 0) {
+                document.getElementById('timer-section').style.display = 'block';
+                timeLeft = step.tSecs; updateTime();
+            } else { document.getElementById('timer-section').style.display = 'none'; }
+
+            // Navigation button state
+            document.getElementById('prev-btn').disabled = currentIdx === 0;
+            document.getElementById('next-btn').disabled = currentIdx === steps.length - 1;
+        }
+
+        function changeStep(d) {
+            jumpToStep(currentIdx + d);
+        }
+
+        function showModal(mode) {
+            const step = steps[currentIdx];
+            const title = document.getElementById('modal-title');
+            const body = document.getElementById('modal-body');
+            if (mode === 'info') {
+                title.innerText = step.infoT; body.innerText = step.infoB;
+            } else {
+                title.innerText = "Baking Diagnostic";
+                body.innerHTML = "<strong>Leaning:</strong> Uneven butter/sugar.<br><strong>Cracks:</strong> Oven too hot.<br><strong>No Rise:</strong> Fat in whites.";
+            }
+            document.getElementById('modal-overlay').style.display = 'flex';
+        }
+
+        function closeModal() { document.getElementById('modal-overlay').style.display = 'none'; }
+        function updateTime() {
+            const m = Math.floor(timeLeft / 60); const s = timeLeft % 60;
+            document.getElementById('timer-display').innerText = `${m}:${s.toString().padStart(2, '0')}`;
+        }
+
+        function toggleTimer() {
+            if (isRunning) { clearInterval(timerInt); } else {
+                if (audioCtx.state === 'suspended') audioCtx.resume();
+                timerInt = setInterval(() => {
+                    timeLeft--; updateTime();
+                    if (timeLeft <= 0) {
+                        clearInterval(timerInt);
+                        const osc = audioCtx.createOscillator(); osc.connect(audioCtx.destination);
+                        osc.start(); osc.stop(audioCtx.currentTime + 1.5);
+                        alert("Step Complete.");
+                    }
+                }, 1000);
+            }
+            isRunning = !isRunning;
+        }
+
+        const savedStep = localStorage.getItem('souffle_step');
+        const savedCount = localStorage.getItem('souffle_count');
+        const savedMat = localStorage.getItem('souffle_mat');
+        const savedTemp = localStorage.getItem('souffle_temp');
+        if (savedStep) currentIdx = parseInt(savedStep);
+        if (savedCount) document.getElementById('ramekin-count').value = savedCount;
+        if (savedMat) document.getElementById('mat-select').value = savedMat;
+        if (savedTemp) document.getElementById('temp-select').value = savedTemp;
+
+        // Initial render
+        renderSidebar();
+        initCalculation();
+    </script>
+</body>
+
+</html>

@@ -5,6 +5,11 @@
     "url": "walkthroughs/chocolate-chip-cookies.html"
   },
   {
+    "name": "chocolate-souffle",
+    "type": "directory",
+    "url": "walkthroughs/chocolate-souffle/index.html"
+  },
+  {
     "name": "pasta-carbonara",
     "type": "directory",
     "url": "walkthroughs/pasta-carbonara/index.html"
