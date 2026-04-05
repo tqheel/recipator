@@ -271,7 +271,8 @@
                 <li>2 cups <strong>All-Purpose Flour</strong></li>
                 <li>1/2 tsp <strong>Baking Soda</strong></li>
                 <li>2 tsp <strong>Baking Powder</strong></li>
-                <li>1/2 tsp <strong>Salt</strong></li>
+                <li id="salt-cheese" class="ingredient-hidden show">1/2 tsp <strong>Salt</strong></li>
+                <li id="salt-plain" class="ingredient-hidden">3/4 tsp <strong>Salt</strong></li>
                 <li>6 tbsp (3/4 stick) <strong>Unsalted Butter</strong>, frozen</li>
                 <li id="cheese-ingredient" class="ingredient-hidden show">1 cup <strong>Sharp Cheddar Cheese</strong>, freshly grated</li>
                 <li>3/4 to 1 cup <strong>Full-Fat Buttermilk</strong>, ice cold</li>
@@ -338,6 +339,8 @@
             title: document.getElementById('recipe-title'),
             subtitle: document.getElementById('recipe-subtitle'),
             cheeseIngredient: document.getElementById('cheese-ingredient'),
+            saltCheese: document.getElementById('salt-cheese'),
+            saltPlain: document.getElementById('salt-plain'),
             step3Title: document.getElementById('step3-title'),
             step3Cheese: document.getElementById('step3-cheese'),
             step3Nocheese: document.getElementById('step3-no-cheese'),
@@ -359,6 +362,8 @@
 
             // Update ingredients
             cheeseElements.cheeseIngredient.classList.toggle('show', hasCheeseSelected);
+            cheeseElements.saltCheese.classList.toggle('show', hasCheeseSelected);
+            cheeseElements.saltPlain.classList.toggle('show', !hasCheeseSelected);
 
             // Update step 3
             cheeseElements.step3Title.classList.toggle('show', hasCheeseSelected);
