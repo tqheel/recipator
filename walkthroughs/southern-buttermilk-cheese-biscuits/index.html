@@ -271,12 +271,9 @@
                 <li>2 cups <strong>All-Purpose Flour</strong></li>
                 <li>1/2 tsp <strong>Baking Soda</strong></li>
                 <li>2 tsp <strong>Baking Powder</strong></li>
-                <li id="salt-cheese" class="ingredient-hidden">1/2 tsp <strong>Salt</strong></li>
-                <li id="salt-plain" class="ingredient-hidden show">3/4 tsp <strong>Salt</strong> (increased for flavor without cheese)</li>
+                <li>1/2 tsp <strong>Salt</strong></li>
                 <li>6 tbsp (3/4 stick) <strong>Unsalted Butter</strong>, frozen</li>
-                <li id="cheese-ingredient" class="ingredient-hidden">1 cup <strong>Sharp Cheddar Cheese</strong>, freshly grated</li>
-                <li id="garlic-powder" class="ingredient-highlight show">1/4 tsp <strong>Garlic Powder</strong> (for savory depth without cheese)</li>
-                <li id="black-pepper" class="ingredient-highlight show">1/4 tsp <strong>Black Pepper</strong> (for subtle spice without cheese)</li>
+                <li id="cheese-ingredient" class="ingredient-hidden show">1 cup <strong>Sharp Cheddar Cheese</strong>, freshly grated</li>
                 <li>3/4 to 1 cup <strong>Full-Fat Buttermilk</strong>, ice cold</li>
                 <li>2 tbsp <strong>Melted Butter</strong> (for brushing)</li>
             </ul>
@@ -293,10 +290,10 @@
                     <strong>Grate the Frozen Butter</strong><br>
                     Place the flour in a large chilled bowl. Use a box grater to shred the frozen butter directly into the flour. Gently toss to coat the butter bits in flour.
                 </li>
-                <li>
-                    <strong id="step3-title">Add the Cheese</strong><br>
+                <li id="step3-container">
+                    <strong id="step3-title" class="ingredient-hidden show">Add the Cheese</strong><br>
                     <span id="step3-cheese">Add the freshly grated cheddar cheese to the flour mixture. Quickly toss with your hands until the cheese is evenly distributed and coated in flour.</span>
-                    <span id="step3-no-cheese" class="instruction-variant show">Add the garlic powder and black pepper to the flour mixture. Whisk or toss with your hands until evenly distributed.</span>
+                    <span id="step3-no-cheese" class="instruction-variant">(Cheese is optional - skip this step for plain biscuits)</span>
                 </li>
                 <li>
                     <strong>Form the Dough</strong><br>
@@ -325,8 +322,8 @@
             <h3>💡 Pro Tips for Perfect Biscuits</h3>
             <ul>
                 <li><strong>Keep Everything Cold:</strong> Warm fats lead to flat biscuits. If your kitchen is hot, chill your bowl and flour before starting.</li>
-                <li id="cheese-tip" class="ingredient-hidden"><strong>Freshly Grated Cheese:</strong> Avoid pre-shredded cheese; it's coated in potato starch which prevents it from melting perfectly into the dough.</li>
-                <li id="seasoning-tip" class="ingredient-highlight show"><strong>Seasoning Distribution (No-Cheese Version):</strong> Whisk the garlic powder and black pepper evenly through the flour to ensure consistent flavor throughout all biscuits.</li>
+                <li id="cheese-tip" class="ingredient-hidden show"><strong>Freshly Grated Cheese:</strong> Avoid pre-shredded cheese; it's coated in potato starch which prevents it from melting perfectly into the dough.</li>
+                <li id="serving-tip" class="ingredient-highlight"><strong>Serving Suggestions (Plain Biscuits):</strong> Serve warm with honey, jelly, jam, or your favorite spread for a classic Southern treat.</li>
                 <li><strong>Don't Overwork:</strong> Handle the dough as little as possible. The heat from your hands can melt the butter.</li>
                 <li><strong>The Shoulder-to-Shoulder Rule:</strong> Biscuits rise better when they have "neighbors" to lean on. Make sure they touch in the pan!</li>
             </ul>
@@ -341,15 +338,11 @@
             title: document.getElementById('recipe-title'),
             subtitle: document.getElementById('recipe-subtitle'),
             cheeseIngredient: document.getElementById('cheese-ingredient'),
-            saltCheese: document.getElementById('salt-cheese'),
-            saltPlain: document.getElementById('salt-plain'),
-            garlicPowder: document.getElementById('garlic-powder'),
-            blackPepper: document.getElementById('black-pepper'),
             step3Title: document.getElementById('step3-title'),
             step3Cheese: document.getElementById('step3-cheese'),
             step3Nocheese: document.getElementById('step3-no-cheese'),
             cheeseTip: document.getElementById('cheese-tip'),
-            seasoningTip: document.getElementById('seasoning-tip')
+            servingTip: document.getElementById('serving-tip')
         };
 
         function updateRecipe() {
@@ -361,24 +354,20 @@
                 cheeseElements.subtitle.textContent = 'The ultimate flaky, buttery, and cheesy comfort food';
             } else {
                 cheeseElements.title.textContent = '🧈 Southern Buttermilk Biscuits';
-                cheeseElements.subtitle.textContent = 'The ultimate flaky, buttery, and savory comfort food';
+                cheeseElements.subtitle.textContent = 'Classic flaky, buttery biscuits perfect with honey, jelly, or jam';
             }
 
             // Update ingredients
             cheeseElements.cheeseIngredient.classList.toggle('show', hasCheeseSelected);
-            cheeseElements.saltCheese.classList.toggle('show', hasCheeseSelected);
-            cheeseElements.saltPlain.classList.toggle('show', !hasCheeseSelected);
-            cheeseElements.garlicPowder.classList.toggle('show', !hasCheeseSelected);
-            cheeseElements.blackPepper.classList.toggle('show', !hasCheeseSelected);
 
             // Update step 3
-            cheeseElements.step3Title.textContent = hasCheeseSelected ? 'Add the Cheese' : 'Add Seasonings';
+            cheeseElements.step3Title.classList.toggle('show', hasCheeseSelected);
             cheeseElements.step3Cheese.classList.toggle('show', hasCheeseSelected);
             cheeseElements.step3Nocheese.classList.toggle('show', !hasCheeseSelected);
 
             // Update pro tips
             cheeseElements.cheeseTip.classList.toggle('show', hasCheeseSelected);
-            cheeseElements.seasoningTip.classList.toggle('show', !hasCheeseSelected);
+            cheeseElements.servingTip.classList.toggle('show', !hasCheeseSelected);
         }
 
         // Initialize on page load
