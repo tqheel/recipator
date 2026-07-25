@@ -20,6 +20,11 @@
     "url": "walkthroughs/pasta-carbonara/index.html"
   },
   {
+    "name": "pork-tenderloin-griddle-grill",
+    "type": "directory",
+    "url": "walkthroughs/pork-tenderloin-griddle-grill/index.html"
+  },
+  {
     "name": "southern-buttermilk-cheese-biscuits",
     "type": "directory",
     "url": "walkthroughs/southern-buttermilk-cheese-biscuits/index.html"
